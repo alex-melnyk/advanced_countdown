@@ -1,6 +1,6 @@
 name: advanced_countdown
 description: "An advanced countdown widget that displays time with digit animation."
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/alex-melnyk/advanced_countdown
 
 environment:

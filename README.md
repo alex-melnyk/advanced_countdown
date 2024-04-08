@@ -2,14 +2,18 @@
 
 An advanced countdown widget that displays time with digit animation.
 
-## Getting Started
+![PREVIEW.gif](PREVIEW.gif)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## AdvancedCountdown Parameters
+| Parameter                       | Description          | Type                                  | Required | Default                              |
+|:--------------------------------|:---------------------|:--------------------------------------|:---------|:-------------------------------------|
+| `value`                         | The value to display | *Duration*                            | false    | Duration.zero                        |
+| `animationDuration`             | The value to display | *Duration*                            | false    | defaultAnimationDuration             |
+| `animationMillisecondsDuration` | The value to display | *Duration*                            | false    | defaultMillisecondsAnimationDuration |
+| `transitionBuilder`             | The value to display | *AnimatedSwitcherTransitionBuilder?*  | false    | (default transition)                 |
+| `style`                         | The value to display | *TextStyle?*                          | false    | DefaultTextStyle.of(context).style   |
+| `displayHours`                  | The value to display | *bool*                                | false    | false                                |
+| `displayMilliseconds`           | The value to display | *bool*                                | false    | false                                |
+| `millisecondsLength`            | The value to display | *int*                                 | false    | 1                                    |
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 

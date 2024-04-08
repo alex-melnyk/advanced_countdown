@@ -34,14 +34,14 @@ const defaultMillisecondsAnimationDuration = Duration(milliseconds: 100);
 class AdvancedCountdown extends StatefulWidget {
   const AdvancedCountdown({
     super.key,
-    required this.value,
+    this.value = Duration.zero,
     this.animationDuration = defaultAnimationDuration,
     this.animationMillisecondsDuration = defaultMillisecondsAnimationDuration,
     this.transitionBuilder,
     this.style,
     this.displayHours = false,
     this.displayMilliseconds = false,
-    this.millisecondsLength = 3,
+    this.millisecondsLength = 1,
   }) : assert(
           millisecondsLength >= 1 && millisecondsLength <= 3,
           'Milliseconds length must be between 1 and 3.',
