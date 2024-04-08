@@ -1,7 +1,7 @@
 name: advanced_countdown
 description: "An advanced countdown widget that displays time with digit animation."
 version: 0.0.1
-homepage:
+repository: https://github.com/alex-melnyk/advanced_countdown
 
 environment:
   sdk: '>=3.3.2 <4.0.0'
