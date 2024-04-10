@@ -8,7 +8,10 @@ extension DurationExtension on Duration {
   String format({
     bool withHours = false,
     bool withMilliseconds = false,
-    int millisecondsDigits = 3,
+    int hoursDigits = 1,
+    int minutesDigits = 1,
+    int secondsDigits = 2,
+    int millisecondsDigits = 1,
   }) {
     assert(
       millisecondsDigits >= 1 && millisecondsDigits <= 3,
@@ -17,9 +20,9 @@ extension DurationExtension on Duration {
 
     return [
       [
-        if (withHours) inHours.toString().padLeft(2, '0'),
-        inMinutes.remainder(60).toString().padLeft(2, '0'),
-        inSeconds.remainder(60).toString().padLeft(2, '0'),
+        if (withHours) inHours.toString().padLeft(hoursDigits, '0'),
+        inMinutes.remainder(60).toString().padLeft(minutesDigits, '0'),
+        inSeconds.remainder(60).toString().padLeft(secondsDigits, '0'),
       ].join(':'),
       if (withMilliseconds)
         inMilliseconds

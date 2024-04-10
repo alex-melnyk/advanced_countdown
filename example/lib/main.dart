@@ -58,6 +58,8 @@ class _MyAppState extends State<MyApp> {
                         value: value,
                         animationDuration: const Duration(milliseconds: 250),
                         style: Theme.of(context).textTheme.displayMedium,
+                        minutesFormat: DurationFormat.double,
+                        secondsFormat: DurationFormat.double,
                       );
                     },
                   ),
@@ -69,6 +71,8 @@ class _MyAppState extends State<MyApp> {
                         value: value,
                         animationDuration: const Duration(milliseconds: 250),
                         style: Theme.of(context).textTheme.displayMedium,
+                        minutesFormat: DurationFormat.double,
+                        secondsFormat: DurationFormat.double,
                       );
                     },
                   ),
@@ -84,7 +88,8 @@ class _MyAppState extends State<MyApp> {
                     style: Theme.of(context).textTheme.displayMedium,
                     displayHours: true,
                     displayMilliseconds: true,
-                    millisecondsLength: 1,
+                    secondsFormat: DurationFormat.double,
+                    millisecondsFormat: DurationMillisFormat.double,
                   );
                 },
               ),

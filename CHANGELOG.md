@@ -1,3 +1,8 @@
+## 0.0.3
+
+* SDK version support wider 3.0.0 < 4.0.0.
+* Duration formatting is added.
+
 ## 0.0.2
 
 * Changed default parameters value.

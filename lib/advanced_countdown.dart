@@ -1,5 +1,8 @@
+import 'package:advanced_countdown/beans/beans.dart';
 import 'package:advanced_countdown/extensions/extensions.dart';
 import 'package:flutter/material.dart';
+
+export 'beans/beans.dart';
 
 /// The default scale next digit tween.
 final defaultScaleNextTween = Tween<double>(
@@ -41,11 +44,11 @@ class AdvancedCountdown extends StatefulWidget {
     this.style,
     this.displayHours = false,
     this.displayMilliseconds = false,
-    this.millisecondsLength = 1,
-  }) : assert(
-          millisecondsLength >= 1 && millisecondsLength <= 3,
-          'Milliseconds length must be between 1 and 3.',
-        );
+    this.hoursFormat = DurationFormat.single,
+    this.minutesFormat = DurationFormat.single,
+    this.secondsFormat = DurationFormat.double,
+    this.millisecondsFormat = DurationMillisFormat.single,
+  });
 
   /// The value of the countdown.
   final Duration value;
@@ -68,9 +71,17 @@ class AdvancedCountdown extends StatefulWidget {
   /// Whether to display milliseconds.
   final bool displayMilliseconds;
 
+  /// The length of the hours digits.
+  final DurationFormat hoursFormat;
+
+  /// The length of the minutes digits.
+  final DurationFormat minutesFormat;
+
+  /// The length of the seconds digits.
+  final DurationFormat secondsFormat;
+
   /// The length of the milliseconds digits.
-  /// NOTICE: Accepts values from 1 to 3.
-  final int millisecondsLength;
+  final DurationMillisFormat millisecondsFormat;
 
   @override
   State<AdvancedCountdown> createState() => _AdvancedCountdownState();
@@ -98,7 +109,10 @@ class _AdvancedCountdownState extends State<AdvancedCountdown> {
     final formattedDuration = widget.value.format(
       withHours: widget.displayHours,
       withMilliseconds: widget.displayMilliseconds,
-      millisecondsDigits: widget.millisecondsLength,
+      hoursDigits: widget.hoursFormat.digits,
+      minutesDigits: widget.minutesFormat.digits,
+      secondsDigits: widget.secondsFormat.digits,
+      millisecondsDigits: widget.millisecondsFormat.digits,
     );
 
     final timeSections = formattedDuration.split('.');
