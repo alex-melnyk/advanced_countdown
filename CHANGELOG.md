@@ -3,6 +3,7 @@
 * Docs added.
 * Remove exporting constants, extracted to a separate file.
 * Countdown widgets extracted.
+* Native dependencies removed.
 
 ## 0.0.3
 
