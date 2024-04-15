@@ -1,3 +1,9 @@
+## 0.0.4
+
+* Docs added.
+* Remove exporting constants, extracted to a separate file.
+* Countdown widgets extracted.
+
 ## 0.0.3
 
 * SDK version support wider 3.0.0 < 4.0.0.

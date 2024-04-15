@@ -1,39 +1,12 @@
 import 'package:advanced_countdown/beans/beans.dart';
+import 'package:advanced_countdown/constants.dart';
 import 'package:advanced_countdown/extensions/extensions.dart';
+import 'package:advanced_countdown/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 export 'beans/beans.dart';
 
-/// The default scale next digit tween.
-final defaultScaleNextTween = Tween<double>(
-  begin: 0.5,
-  end: 1.0,
-);
-
-/// The default scale prev digit tween.
-final defaultScalePrevTween = Tween<double>(
-  begin: 0.5,
-  end: 1.0,
-);
-
-/// The default slide next digit tween.
-final defaultSlideNextTween = Tween<Offset>(
-  begin: const Offset(0, -0.75),
-  end: Offset.zero,
-);
-
-/// The default slide prev digit tween.
-final defaultSlidePrevTween = Tween<Offset>(
-  begin: const Offset(0, 0.75),
-  end: Offset.zero,
-);
-
-/// The default animation duration.
-const defaultAnimationDuration = Duration(milliseconds: 250);
-
-/// The default milliseconds animation duration.
-const defaultMillisecondsAnimationDuration = Duration(milliseconds: 100);
-
+/// Advanced countdown widget.
 class AdvancedCountdown extends StatefulWidget {
   const AdvancedCountdown({
     super.key,
@@ -119,111 +92,52 @@ class _AdvancedCountdownState extends State<AdvancedCountdown> {
     final hhmmss = timeSections.first;
     final millis = timeSections.last;
     final hasMilliseconds = timeSections.length > 1;
+    final animationForward = widget.value >= previousValue;
 
     return ClipRect(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           for (final digit in hhmmss.characters)
-            if (digit == ':')
-              Container(
+            if (digit == digitDoubleDot)
+              DigitWidget(
                 height: digitSize.height,
-                alignment: Alignment.center,
-                child: Text(
-                  digit,
-                  style: normalizedTextStyle,
-                ),
+                value: digit,
+                style: normalizedTextStyle,
               )
             else
-              AnimatedSwitcher(
-                reverseDuration: widget.animationDuration,
-                duration: widget.animationDuration,
-                transitionBuilder: (child, animation) {
-                  if (widget.transitionBuilder != null) {
-                    return widget.transitionBuilder!.call(child, animation);
-                  }
-
-                  final digitValue = (child.key as ValueKey).value.toString();
-                  final forward = widget.value >= previousValue
-                      ? digitValue == digit
-                      : digitValue != digit;
-
-                  return FadeTransition(
-                    opacity: animation,
-                    child: ScaleTransition(
-                      scale: forward
-                          ? defaultScaleNextTween.animate(animation)
-                          : defaultScalePrevTween.animate(animation),
-                      child: SlideTransition(
-                        position: forward
-                            ? defaultSlideNextTween.animate(animation)
-                            : defaultSlidePrevTween.animate(animation),
-                        child: child,
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  key: ValueKey(digit),
-                  width: digitSize.width,
-                  height: digitSize.height,
-                  alignment: Alignment.center,
-                  child: Text(
-                    digit,
-                    style: normalizedTextStyle,
-                  ),
-                ),
-              ),
-          if (hasMilliseconds)
-            Container(
-              height: digitSize.height,
-              alignment: Alignment.center,
-              child: Text(
-                '.',
+              AnimatedDigitWidget(
+                value: digit,
                 style: normalizedTextStyle,
+                animationDirection: animationForward,
+                size: digitSize,
+                animationDuration: widget.animationDuration,
+                transitionBuilder: widget.transitionBuilder,
+                scalePrevTween: defaultScalePrevTween,
+                scaleNextTween: defaultScaleNextTween,
+                slidePrevTween: defaultSlidePrevTween,
+                slideNextTween: defaultSlideNextTween,
               ),
+          if (hasMilliseconds) ...[
+            DigitWidget(
+              height: digitSize.height,
+              value: digitSingleDot,
+              style: normalizedTextStyle,
             ),
-          if (hasMilliseconds)
             for (final digit in millis.characters)
-              AnimatedSwitcher(
-                reverseDuration: widget.animationMillisecondsDuration,
-                duration: widget.animationMillisecondsDuration,
-                transitionBuilder: (child, animation) {
-                  if (widget.transitionBuilder != null) {
-                    return widget.transitionBuilder!.call(child, animation);
-                  }
-
-                  final digitValue = (child.key as ValueKey).value.toString();
-                  final forward = widget.value >= previousValue
-                      ? digitValue == digit
-                      : digitValue != digit;
-
-                  return FadeTransition(
-                    opacity: animation,
-                    child: ScaleTransition(
-                      scale: forward
-                          ? defaultScaleNextTween.animate(animation)
-                          : defaultScalePrevTween.animate(animation),
-                      child: SlideTransition(
-                        position: forward
-                            ? defaultSlideNextTween.animate(animation)
-                            : defaultSlidePrevTween.animate(animation),
-                        child: child,
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  key: ValueKey(digit),
-                  width: digitSize.width,
-                  height: digitSize.height,
-                  alignment: Alignment.center,
-                  child: Text(
-                    digit,
-                    style: normalizedTextStyle,
-                  ),
-                ),
+              AnimatedDigitWidget(
+                value: digit,
+                style: normalizedTextStyle,
+                animationDirection: animationForward,
+                size: digitSize,
+                animationDuration: widget.animationMillisecondsDuration,
+                transitionBuilder: widget.transitionBuilder,
+                scalePrevTween: defaultScalePrevTween,
+                scaleNextTween: defaultScaleNextTween,
+                slidePrevTween: defaultSlidePrevTween,
+                slideNextTween: defaultSlideNextTween,
               ),
+          ],
         ],
       ),
     );
